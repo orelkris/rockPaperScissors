@@ -1,11 +1,11 @@
-// alert("Test");
+// *** Welcome to Rock, Paper, Scissors ***
 // Set up constant game variables
 const ROCK = "rock";
 const PAPER = "paper";
 const SCISSORS = "scissors";
 
 // Set up cononstant for round number
-const ROUND = 2;
+const ROUND = 5;
 
 // array of choices
 const choice = [ROCK, PAPER, SCISSORS];
@@ -37,29 +37,18 @@ const computerPlay = () => {
   return choice[randomIndex];
 };
 
-// const computerInput = computerPlay();
-// console.log("Computer Input", computerInput);
-
-// Get player Input
-// const playerInput = SCISSORS;
-
-// console.log(oneRound(playerInput, computerInput));
-
 function outcomeMessage(outcome, playerInput, computerInput) {
   let message = "";
 
   switch (outcome) {
-    // -1 will indicate a tie
     case TIE:
       message = `No one wins! It is a TIE!`;
       break;
 
-    // 0 will indicate that the player lost
     case COMPUTER:
       message = `Sorry :( You Lose! ${computerInput} beats ${playerInput}`;
       break;
 
-    // 1 will indicate that the player won
     case PLAYER:
       message = `Congratulation! You win! ${playerInput} beats ${computerInput}`;
       break;
@@ -187,4 +176,5 @@ function game() {
   console.log(scoreTracker);
 }
 
+// Play the Game
 game();
