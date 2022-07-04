@@ -5,7 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock, Paper, Scissors!</title>
-    <script src="js/script.js" async></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/script.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <video autoplay muted loop id="background-video">
+      <source src="videos/ink.mp4" type="video/mp4" />
+    </video>
+    <div class="vertical-container">
+      <!-- Welcoming Header -->
+      <header class="main-header-section">
+        <div class="main-header">
+          <h1>Welcome to a game of Rock, Paper and Scissors!</h1>
+          <p>Please pick your weapon below!</p>
+        </div>
+      </header>
+      <!-- Where the game happens -->
+      <section class="game-area">
+        <div class="box figure-rock"></div>
+        <div class="box figure-paper"></div>
+        <div class="box figure-scissors"></div>
+      </section>
+      <!-- Where the final score will be seen -->
+      <section class="final-score"></section>
+    </div>
+  </body>
 </html>

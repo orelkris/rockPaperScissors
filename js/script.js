@@ -30,7 +30,6 @@ const scoreTracker = {
 
 // Setting up randomized computer choice
 const computerPlay = () => {
-  // Choose a index between 0 and 2 inclusive
   let randomIndex = Math.floor(Math.random() * 3);
 
   // return the computer choice selected from the choice array
@@ -149,15 +148,16 @@ function playRound(playerInput = SCISSORS, computerInput = PAPER) {
   return winner;
 }
 
-function game() {
+// user choice
+let playerRock = function game() {
   let playerInput;
   let computerInput;
 
   for (let i = 1; i <= ROUND; i++) {
     // Get player input
-    playerInput = prompt(
-      "Please select: Rock, Paper or Scissors: "
-    ).toLowerCase();
+    // playerInput = prompt(
+    //   "Please select: Rock, Paper or Scissors: "
+    // ).toLowerCase();
 
     // Get computer input
     computerInput = computerPlay();
@@ -167,14 +167,13 @@ function game() {
     let winner = playRound(playerInput, computerInput);
 
     // Show the outcome message for the round
-    alert(outcomeMessage(winner, playerInput, computerInput));
+    // alert(outcomeMessage(winner, playerInput, computerInput));
 
     // Update the score keeper
     scoreTracker[winner].win++;
   }
-  alert(finalScoreMessage());
-  console.log(scoreTracker);
-}
+  // alert(finalScoreMessage());
+};
 
 // Play the Game
 game();
