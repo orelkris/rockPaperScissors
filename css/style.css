@@ -80,7 +80,7 @@ button:hover {
   justify-content: space-between;
   flex-wrap: wrap;
 
-  /* animation: fadeIn 2s ease forwards; */
+  animation: fadeIn 2s ease forwards;
 }
 
 /* MAIN PAGE HEADER */
@@ -88,9 +88,9 @@ button:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* opacity: 0; */
+  opacity: 0;
 
-  /* animation: fadeIn 3s ease forwards 1s; */
+  animation: fadeIn 3s ease forwards 1s;
 }
 
 .main-header-section h1 {
@@ -128,8 +128,8 @@ button:hover {
   flex-direction: column;
   gap: 3rem;
 
-  /* opacity: 0; */
-  /* animation: fadeIn 3s ease forwards 3s; */
+  opacity: 0;
+  animation: fadeIn 3s ease forwards 3s;
 }
 
 .game-boxes {
