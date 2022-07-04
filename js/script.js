@@ -59,40 +59,73 @@ function outcomeMessage(outcome, playerInput, computerInput) {
 }
 
 function finalScoreMessage() {
+  let finalScoreText = document.querySelector(".vertical-container");
+
   let finalWinner =
     scoreTracker[PLAYER].win > scoreTracker[COMPUTER].win
-      ? "Yey, player is the winner!"
+      ? "Congratulations, you are the winner!"
       : scoreTracker[PLAYER].win < scoreTracker[COMPUTER].win
-      ? "Yey, computer is the winner!"
+      ? "Sorry :(, computer is the winner!"
       : "Yey, it's a tie!";
 
-  return `${finalWinner}
+  finalScoreText.appendChild(
+    createElement(
+      "div",
+      createElement("h2", finalWinner),
+      createElement(
+        "p",
+        `Player has won ${scoreTracker[PLAYER].win} games and lost ${
+          ROUND - scoreTracker[PLAYER].win - scoreTracker[TIE].win
+        } games.`
+      ),
+      createElement(
+        "p",
+        `Computer has won ${scoreTracker[COMPUTER].win} games and lost ${
+          ROUND - scoreTracker[COMPUTER].win - scoreTracker[TIE].win
+        } games.`
+      ),
+      createElement(
+        "p",
+        `Player and computer tied ${scoreTracker[TIE].win} times.`
+      ),
+      createElement("button", "Play Again")
+    )
+  );
 
-  Score Breakdown:
-  Player has won ${scoreTracker[PLAYER].win} games and lost ${
-    ROUND - scoreTracker[PLAYER].win - scoreTracker[TIE].win
-  } games.
-  Computer has won ${scoreTracker[COMPUTER].win} games and lost ${
-    ROUND - scoreTracker[COMPUTER].win - scoreTracker[TIE].win
-  } games.
-  Player and computer tied ${scoreTracker[TIE].win} times.`;
+  let div = document.querySelector(".vertical-container > div:last-child");
+  div.classList.add("final-score");
+
+  let button = document.querySelector("button");
+  button.addEventListener("click", restartGame);
+}
+
+function createElement(type, ...children) {
+  let node = document.createElement(type);
+  for (let child of children) {
+    if (typeof child != "string") {
+      node.appendChild(child);
+    } else {
+      node.appendChild(document.createTextNode(child));
+    }
+  }
+  return node;
 }
 
 // one round of Rock Paper and Scissors
-function playRound(playerInput = SCISSORS, computerInput = PAPER) {
-  /* ***Game rules***
-    Rock and Paper => Paper wins
-    Rock and Scissors => Rock wins
-    Rock and Rock => Tie
+function playRound(e) {
+  let playerInput;
+  let computerInput = computerPlay();
+  let round = document.querySelector(".round");
+  let scoreUpdate = document.querySelector(".game-score-update");
 
-    Paper and Paper => Tie
-    Paper and Scissors => Scissors win
-    Paper and Rock => Paper wins
+  let gameArea = document.querySelector(".game-area");
 
-    Scissors and Paper => Scossors win
-    Scissors and Scissors => Tie
-    Scissors and Rock => Rock wins
-  */
+  e.target.classList.forEach((classItem) => {
+    if (classItem.match(/scissors|rock|paper/)) {
+      playerInput = classItem;
+      console.log(playerInput);
+    }
+  });
 
   // Set up a winner variable
   let winner = TIE;
@@ -145,35 +178,54 @@ function playRound(playerInput = SCISSORS, computerInput = PAPER) {
       break;
   }
 
-  return winner;
+  console.log(scoreTracker);
+  console.log(computerInput);
+
+  // scoreUpdate.classList.add("fade-in-out").remove("fade-in-out");
+
+  scoreUpdate.classList.add("fade-in-out");
+
+  scoreUpdate.addEventListener(
+    "animationend",
+    (e) => {
+      e.target.classList.remove("fade-in-out");
+      console.log("animation ended", e.target);
+
+      round.textContent = +round.textContent + 1;
+      scoreTracker[winner].win++;
+
+      if (round.textContent > ROUND) {
+        gameArea.classList.add("not-visible");
+        finalScoreMessage();
+      }
+    },
+    { once: true }
+  );
+
+  scoreUpdate.textContent = outcomeMessage(winner, playerInput, computerInput);
 }
 
-// user choice
-let playerRock = function game() {
-  let playerInput;
-  let computerInput;
+function restartGame(e) {
+  let gameArea = document.querySelector(".game-area");
+  gameArea.classList.remove("not-visible");
 
-  for (let i = 1; i <= ROUND; i++) {
-    // Get player input
-    // playerInput = prompt(
-    //   "Please select: Rock, Paper or Scissors: "
-    // ).toLowerCase();
+  let finalScore = document.querySelector(".final-score");
+  finalScore.parentNode.removeChild(finalScore);
 
-    // Get computer input
-    computerInput = computerPlay();
+  let round = document.querySelector(".round");
+  round.textContent = 1;
 
-    console.log("Computer Input", computerInput);
+  let scoreUpdate = document.querySelector(".game-score-update");
+  scoreUpdate.textContent = "";
 
-    let winner = playRound(playerInput, computerInput);
+  scoreTracker.computer.win = 0;
+  scoreTracker.player.win = 0;
+  scoreTracker.tie.win = 0;
+}
 
-    // Show the outcome message for the round
-    // alert(outcomeMessage(winner, playerInput, computerInput));
+// user selects a choice and the game begins!
+let playerChoices = document.querySelectorAll(".game-box");
 
-    // Update the score keeper
-    scoreTracker[winner].win++;
-  }
-  // alert(finalScoreMessage());
-};
-
-// Play the Game
-game();
+playerChoices.forEach((choice) => {
+  choice.addEventListener("click", playRound);
+});
