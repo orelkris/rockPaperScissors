@@ -30,35 +30,76 @@ h1 {
   padding: 1rem;
 }
 
+h2,
+h2 > span {
+  font-size: 2.5rem;
+  padding: 1rem;
+}
+
+h3 {
+  font-size: 2.4rem;
+}
+
 p {
-  font-size: 2.3rem;
+  font-size: 2.2rem;
+  padding: 1rem;
+}
+
+button {
+  font-size: 2.2rem;
+  width: 20rem;
+  padding: 2rem 3rem;
+  cursor: pointer;
+
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 10px rgb(255, 255, 255);
+
+  background-color: rgba(47, 0, 255, 0.7);
+  color: #fff;
+}
+
+button:hover {
+  background-color: rgba(47, 0, 255, 1);
 }
 
 /* MAIN CONTAINER FOR PAE */
 .vertical-container {
   width: 80rem;
-  height: 60rem;
+  height: 70rem;
   position: relative;
   border: 2px solid black;
   border-radius: 2rem;
+  /* opacity: 0; */
 
   background-color: rgba(200, 100, 100, 0.4);
 
   /* Flex */
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   flex-wrap: wrap;
+
+  /* animation: fadeIn 2s ease forwards; */
 }
 
 /* MAIN PAGE HEADER */
 .main-header-section {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  /* opacity: 0; */
+
+  /* animation: fadeIn 3s ease forwards 1s; */
 }
 
-.main-header h1 {
+.main-header-section h1 {
   text-shadow: 0px 0px 5px rgb(255, 251, 0);
   text-align: center;
+}
+
+.main-header-section span {
+  font-size: 2.5rem;
 }
 
 .main-header p {
@@ -67,15 +108,38 @@ p {
 }
 
 /* GAME AREA */
+
+.game-area h2,
+.game-area h3,
+.game-area span {
+  text-shadow: 0px 0px 5px rgb(255, 251, 0);
+  text-align: center;
+}
+
+.game-area h3 {
+  opacity: 0;
+}
+
 .game-area {
+  flex: 2;
   height: 35rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  /* opacity: 0; */
+  /* animation: fadeIn 3s ease forwards 3s; */
+}
+
+.game-boxes {
   display: flex;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: top;
 }
 
 /* Areas for rock paper and scissor images */
-.game-area .box {
+.game-area .game-box {
   width: 20rem;
   height: 20rem;
 
@@ -86,7 +150,7 @@ p {
   transition: all 0.5s;
 }
 
-.game-area .box:hover {
+.game-area .game-box:hover {
   transform: scale(1.2);
   opacity: 100%;
   box-shadow: 0px 0px 1rem rgb(255, 251, 0);
@@ -97,24 +161,69 @@ p {
 }
 
 /* ROCK */
-.figure-rock {
+.rock {
   border-radius: inherit;
   background: url(../images/rock-cropped.png) center center / cover;
 }
 
 /* PAPER */
-.figure-paper {
+.paper {
   border-radius: inherit;
   background: url(../images/paper-cropped.png) center center / cover;
 }
 
 /* SCISSORS */
-.figure-scissors {
+.scissors {
   border-radius: inherit;
   background: url(../images/scissors-cropped.png) center center / cover;
 }
 
 /* SCORE OUTPUT */
 .final-score {
+  flex: 2;
+  height: 35rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.not-visible {
+  position: absolute;
+  width: 0;
+  height: 0;
   display: none;
+
+  transition: all 2s ease;
+}
+
+/* animation */
+.fade-in {
+  animation: fadeIn 1s ease;
+}
+
+.fade-in-out {
+  animation: fadeInOut 4s ease;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0%;
+  }
+  50% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0%;
+  }
 }
