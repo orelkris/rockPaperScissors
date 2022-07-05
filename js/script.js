@@ -49,7 +49,7 @@ function outcomeMessage(outcome, playerInput, computerInput) {
       break;
 
     case PLAYER:
-      message = `Congratulation! You win! ${playerInput} beats ${computerInput}`;
+      message = `Congratulations! You win! ${playerInput} beats ${computerInput}`;
       break;
     default:
       message = "Unknown input!";
