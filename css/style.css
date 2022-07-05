@@ -126,7 +126,7 @@ button:hover {
 
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1rem;
 
   opacity: 0;
   animation: fadeIn 3s ease forwards 3s;
@@ -158,6 +158,29 @@ button:hover {
   cursor: pointer;
 
   transition: all 0.5s;
+}
+
+.game-area .game-box:disabled,
+.game-area .game-box:disabled:hover {
+  opacity: 40%;
+  transform: none;
+  box-shadow: none;
+  border-color: rgb(0, 0, 0);
+  cursor: auto;
+}
+
+.round-score,
+.round-score > p,
+.round-score span {
+  font-size: 2.5rem;
+  text-shadow: 0px 0px 5px rgb(255, 251, 0);
+
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.round-score span {
+  padding-left: 1rem;
 }
 
 /* ROCK */
