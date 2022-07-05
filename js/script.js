@@ -68,6 +68,7 @@ function finalScoreMessage() {
       ? "Sorry :(, computer is the winner!"
       : "Yey, it's a tie!";
 
+  // create elements for the final score message of the game
   finalScoreText.appendChild(
     createElement(
       "div",
@@ -95,7 +96,7 @@ function finalScoreMessage() {
   let div = document.querySelector(".vertical-container > div:last-child");
   div.classList.add("final-score");
 
-  let button = document.querySelector("button");
+  let button = document.querySelector(".final-score button");
   button.addEventListener("click", restartGame);
 }
 
@@ -117,13 +118,22 @@ function playRound(e) {
   let computerInput = computerPlay();
   let round = document.querySelector(".round");
   let scoreUpdate = document.querySelector(".game-score-update");
+  let roundPlayerScore = document.querySelector(".player-score");
+  let roundComputerScore = document.querySelector(".computer-score");
+
+  let btnRockPaperScissors = document.querySelector(".game-boxes");
+
+  // disable the buttons until the next round starts
+  Array.from(btnRockPaperScissors.children).forEach(
+    (button) => (button.disabled = true)
+  );
 
   let gameArea = document.querySelector(".game-area");
+  let header = document.querySelector(".main-header-section");
 
   e.target.classList.forEach((classItem) => {
     if (classItem.match(/scissors|rock|paper/)) {
       playerInput = classItem;
-      console.log(playerInput);
     }
   });
 
@@ -178,26 +188,28 @@ function playRound(e) {
       break;
   }
 
-  console.log(scoreTracker);
-  console.log(computerInput);
-
-  // scoreUpdate.classList.add("fade-in-out").remove("fade-in-out");
-
   scoreUpdate.classList.add("fade-in-out");
 
   scoreUpdate.addEventListener(
     "animationend",
     (e) => {
-      e.target.classList.remove("fade-in-out");
-      console.log("animation ended", e.target);
-
       round.textContent = +round.textContent + 1;
       scoreTracker[winner].win++;
 
+      roundPlayerScore.textContent = scoreTracker.player.win;
+      roundComputerScore.textContent = scoreTracker.computer.win;
+
       if (round.textContent > ROUND) {
         gameArea.classList.add("not-visible");
+        header.classList.add("not-visible");
         finalScoreMessage();
       }
+      e.target.classList.remove("fade-in-out");
+
+      // enable the buttons for the next round
+      Array.from(btnRockPaperScissors.children).forEach(
+        (button) => (button.disabled = false)
+      );
     },
     { once: true }
   );
@@ -206,8 +218,13 @@ function playRound(e) {
 }
 
 function restartGame(e) {
+  console.log("Restarting the game");
+
   let gameArea = document.querySelector(".game-area");
   gameArea.classList.remove("not-visible");
+
+  let header = document.querySelector(".main-header-section");
+  header.classList.remove("not-visible");
 
   let finalScore = document.querySelector(".final-score");
   finalScore.parentNode.removeChild(finalScore);
@@ -218,9 +235,15 @@ function restartGame(e) {
   let scoreUpdate = document.querySelector(".game-score-update");
   scoreUpdate.textContent = "";
 
+  let roundPlayerScore = document.querySelector(".player-score");
+  let roundComputerScore = document.querySelector(".computer-score");
+
   scoreTracker.computer.win = 0;
   scoreTracker.player.win = 0;
   scoreTracker.tie.win = 0;
+
+  roundPlayerScore.textContent = 0;
+  roundComputerScore.textContent = 0;
 }
 
 // user selects a choice and the game begins!
